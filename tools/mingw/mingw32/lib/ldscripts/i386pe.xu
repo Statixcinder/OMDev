@@ -1,6 +1,6 @@
 /* Script for ld -Ur: link w/out relocation, do create constructors */
 OUTPUT_FORMAT(pe-i386)
-SEARCH_DIR("/mingw//mingw32/lib"); SEARCH_DIR("/mingw//lib"); SEARCH_DIR("/usr/local/lib"); SEARCH_DIR("/lib"); SEARCH_DIR("/usr/lib");
+SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
 SECTIONS
 {
   .text  :
@@ -29,6 +29,10 @@ SECTIONS
   {
     *(.rdata)
     *(.rdata_runtime_pseudo_reloc)
+  }
+  .eh_frame  :
+  {
+    *(.eh_frame)
   }
   .pdata  :
   {
@@ -95,6 +99,10 @@ SECTIONS
   {
     *(.debug_pubnames)
   }
+  .debug_pubtypes   :
+  {
+    *(.debug_pubtypes)
+  }
   /* DWARF 2.  */
   .debug_info   :
   {
@@ -145,5 +153,10 @@ SECTIONS
   .debug_ranges   :
   {
     *(.debug_ranges)
+  }
+  /* DWARF 4.  */
+  .debug_types   :
+  {
+    *(.debug_types) *(.gnu.linkonce.wt.*)
   }
 }
