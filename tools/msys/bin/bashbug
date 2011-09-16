@@ -30,7 +30,7 @@
 MACHINE="i686"
 OS="msys"
 CC="gcc"
-CFLAGS=" -DPROGRAM='bash.exe' -DCONF_HOSTTYPE='i686' -DCONF_OSTYPE='msys' -DCONF_MACHTYPE='i686-pc-msys' -DCONF_VENDOR='pc' -DLOCALEDIR='/usr/share/locale' -DPACKAGE='bash' -DSHELL -DHAVE_CONFIG_H -DRECYCLES_PIDS   -I.  -I/usr/src/bash/bash-3.1 -I/usr/src/bash/bash-3.1/include -I/usr/src/bash/bash-3.1/lib  -D__CYGWIN__ -O2 -fno-unit-at-a-time -s -march=i386 -mtune=i686 -D__CYGWIN__"
+CFLAGS=" -DPROGRAM='bash.exe' -DCONF_HOSTTYPE='i686' -DCONF_OSTYPE='msys' -DCONF_MACHTYPE='i686-pc-msys' -DCONF_VENDOR='pc' -DLOCALEDIR='/usr/share/locale' -DPACKAGE='bash' -DSHELL -DHAVE_CONFIG_H -DRECYCLES_PIDS   -I.  -I/c/projetos/msys-home/build/bash/bash-3.1 -I/c/projetos/msys-home/build/bash/bash-3.1/include -I/c/projetos/msys-home/build/bash/bash-3.1/lib   -O2 -fno-unit-at-a-time -s -march=i386 -mtune=i686"
 RELEASE="3.1"
 PATCHLEVEL="17"
 RELSTATUS="release"

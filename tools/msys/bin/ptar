@@ -1,72 +1,108 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
-eval 'exec /usr/bin/perl -w -S $0 ${1+"$@"}'
+eval 'exec /usr/bin/perl  -S $0 ${1+"$@"}'
     if 0; # not running under some shell
-
 use strict;
+
+use Getopt::Std;
 use Archive::Tar;
 use File::Find;
 
-my $switches = shift @ARGV;
-my $tarfile = "./default.tar";
-my ($create, $list, $extract, $compress, $debug, $verbose) = (0, 0, 0, 0);
+my $opts = {};
+getopts('dcvzthxf:', $opts) or die usage();
 
-if (!$switches) {
-    print<<EOF;
-usage: ptar [xct][v][f][z] [archive_file] [files...]
-    x    Extract from archive_file
-    c    Make archive_file from files
-    t    Print contents of archive_file
-    f    First argument is name of archive_file, default is ./default.tar
-    v    Print filenames as they are added to archive_file
-    z    Read/write gnuzip-compressed archive_file (not always available)
-EOF
+### show the help message ###
+die usage() if $opts->{h};
+
+### enable debugging (undocumented feature)
+local $Archive::Tar::DEBUG = 1 if $opts->{d};
+
+### sanity checks ###
+unless ( 1 == grep { defined $opts->{$_} } qw[x t c] ) {
+    die "You need exactly one of 'x', 't' or 'c' options: " . usage();
+}
+
+my $compress    = $opts->{z} ? 1 : 0;
+my $verbose     = $opts->{v} ? 1 : 0;
+my $file        = $opts->{f} ? $opts->{f} : 'default.tar';
+my $tar         = Archive::Tar->new();
+
+if( $opts->{c} ) {
+    my @files;
+    find( sub { push @files, $File::Find::name;
+                print $File::Find::name.$/ if $verbose }, @ARGV );
+
+    Archive::Tar->create_archive( $file, $compress, @files );
     exit;
 }
 
-foreach (split(//,$switches)) {
-    if ($_ eq "x") {
-	$extract = 1;
-    }
-    elsif ($_ eq "t") {
-	$list = 1;
-    }
-    elsif ($_ eq "c") {
-	$create = 1;
-    }
-    elsif ($_ eq "z") {
-	$compress = 1;
-    }
-    elsif ($_ eq "f") {
-	$tarfile = shift @ARGV;
-    }
-    elsif ($_ eq "v") {
-	$verbose = 1;
-    }
-    elsif ($_ eq "d") {
-	$debug = 1;
-    }
-    elsif ($_ eq "-") {
-	# Oh, a leading dash! How cute!
-    }
-    else {
-	warn "Unknown switch: $_\n";
-    }
+my $tar = Archive::Tar->new($file, $compress);
+
+if( $opts->{t} ) {
+    print map { $_->full_path . $/ } $tar->get_files;
+
+} elsif( $opts->{x} ) {
+    print map { $_->full_path . $/ } $tar->get_files
+        if $verbose;
+    Archive::Tar->extract_archive($file, $compress);
 }
 
-if ($extract+$list+$create>1) {
-    die "More than one of x, c and t doesn't make sense.\n";
+
+
+sub usage {
+    qq[
+Usage:  ptar -c [-v] [-z] [-f ARCHIVE_FILE] FILE FILE ...
+        ptar -x [-v] [-z] [-f ARCHIVE_FILE]
+        ptar -t [-z] [-f ARCHIVE_FILE]
+        ptar -h
+
+    ptar is a small, tar look-alike program that uses the perl module
+    Archive::Tar to extract, create and list tar archives.
+
+Options:
+    x   Extract from ARCHIVE_FILE
+    c   Create ARCHIVE_FILE from FILE
+    t   List the contents of ARCHIVE_FILE
+    f   Name of the ARCHIVE_FILE to use. Default is './default.tar'
+    z   Read/Write zlib compressed ARCHIVE_FILE (not always available)
+    v   Print filenames as they are added or extraced from ARCHIVE_FILE
+    h   Prints this help message
+
+See Also:
+    tar(1)
+    Archive::Tar
+
+    \n]
 }
-elsif ($list) {
-    print join "\n", Archive::Tar->list_archive ($tarfile),"";
-}
-elsif ($extract) {
-    Archive::Tar->extract_archive ($tarfile);
-}
-elsif ($create) {
-    my @f;
-    
-    find (sub { push @f,$File::Find::name;
-		print $File::Find::name,"\n" if $verbose}, @ARGV);
-    Archive::Tar->create_archive ($tarfile, $compress, @f);
-}
+
+=head1 NAME
+
+ptar - a tar-like program written in perl
+
+=head1 DESCRIPTION
+
+ptar is a small, tar look-alike program that uses the perl module
+Archive::Tar to extract, create and list tar archives.
+
+=head1 SYNOPSIS
+
+    ptar -c [-v] [-z] [-f ARCHIVE_FILE] FILE FILE ...
+    ptar -x [-v] [-z] [-f ARCHIVE_FILE]
+    ptar -t [-z] [-f ARCHIVE_FILE]
+    ptar -h
+
+=head1 OPTIONS
+
+    x   Extract from ARCHIVE_FILE
+    c   Create ARCHIVE_FILE from FILE
+    t   List the contents of ARCHIVE_FILE
+    f   Name of the ARCHIVE_FILE to use. Default is './default.tar'
+    z   Read/Write zlib compressed ARCHIVE_FILE (not always available)
+    v   Print filenames as they are added or extraced from ARCHIVE_FILE
+    h   Prints this help message
+
+=head1 SEE ALSO
+
+tar(1), L<Archive::Tar>.
+
+=cut
