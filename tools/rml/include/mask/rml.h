@@ -457,6 +457,7 @@ STATIC_INLINE unsigned long rml_default_hash(unsigned char* str)
 /* real */
 #define RML_PRIM_REAL_EQ(X,Y)   RML_PRIM_MKBOOL(rml_prim_get_real(X)==rml_prim_get_real(Y))
 /* string */
+#include <string.h>
 #define RML_PRIM_STRING_EQ(X,Y) RML_PRIM_MKBOOL(((X) == (Y))?1:(strcmp(RML_STRINGDATA(X), RML_STRINGDATA(Y))==0))
 /* hashes */
 #define RML_PRIM_STRING_HASH(X)       RML_PRIM_INT_ABS(RML_IMMEDIATE(RML_TAGFIXNUM((rml_uint_t)rml_default_hash(RML_STRINGDATA(X)))));
@@ -1055,11 +1056,13 @@ extern RML_FORWARD_LABEL(RML__string_5fappend);
 extern RML_FORWARD_LABEL(RML__string_5fint);
 extern RML_FORWARD_LABEL(RML__string_5flength);
 extern RML_FORWARD_LABEL(RML__string_5fappend_5flist);
+extern RML_FORWARD_LABEL(RML__string_5fdelimit_5flist);
 /* java named */
 #define RML__stringAppend RML__string_5fappend
 #define RML__stringInt    RML__string_5fint
 #define RML__stringLength RML__string_5flength
 #define RML__stringAppendList RML__string_5fappend_5flist
+#define RML__stringDelimitList RML__string_5fdelimit_5flist
 
 /* declarative vectors */
 extern RML_FORWARD_LABEL(RML__vector_5flength);
