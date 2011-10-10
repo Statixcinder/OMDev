@@ -15,16 +15,16 @@
 #ifndef BOOST_EXTENSION_DECL_HPP
 #define BOOST_EXTENSION_DECL_HPP
 
-#if __GNUC__ >= 4
+/*#if __GNUC__ >= 4
 #  define BOOST_EXTENSION_EXPORT_DECL __attribute__((visibility("default")))
 #  define BOOST_EXTENSION_IMPORT_DECL __attribute__((visibility("hidden")))
-#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)
+#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)*/
 #  define BOOST_EXTENSION_EXPORT_DECL __declspec(dllexport)
 #  define BOOST_EXTENSION_IMPORT_DECL __declspec(dllimport)
-#elif
-#  define BOOST_EXTENSION_EXPORT_DECL
-#  define BOOST_EXTENSION_IMPORT_DECL
+/*#elif
+#  define BOOST_EXTENSION_EXPORT_DECL __declspec(dllexport)
+#  define BOOST_EXTENSION_IMPORT_DECL __declspec(dllimport)
 
 #endif
-
+*/
 #endif
