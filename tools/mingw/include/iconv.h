@@ -22,7 +22,7 @@
 #define _LIBICONV_H
 
 #define _LIBICONV_VERSION 0x010D    /* version number: (major<<8) + minor */
-extern __declspec (dllimport) int _libiconv_version; /* Likewise */
+extern  int _libiconv_version; /* Likewise */
 
 /* We would like to #include any system header file which could define
    iconv_t, 1. in order to eliminate the risk that the user gets compilation
@@ -56,7 +56,7 @@ typedef void* iconv_t;
    have EILSEQ in a different header.  On these systems, define EILSEQ
    ourselves. */
 #ifndef EILSEQ
-#define EILSEQ 
+#define EILSEQ ENOENT
 #endif
 
 
@@ -80,7 +80,7 @@ extern iconv_t iconv_open (const char* tocode, const char* fromcode);
 #ifndef LIBICONV_PLUG
 #define iconv libiconv
 #endif
-extern size_t iconv (iconv_t cd, const char* * inbuf, size_t *inbytesleft, char* * outbuf, size_t *outbytesleft);
+extern size_t iconv (iconv_t cd,  char* * inbuf, size_t *inbytesleft, char* * outbuf, size_t *outbytesleft);
 
 /* Frees resources allocated for conversion descriptor ‘cd’. */
 #ifndef LIBICONV_PLUG
@@ -93,7 +93,7 @@ extern int iconv_close (iconv_t cd);
 
 /* Nonstandard extensions. */
 
-#if 1
+#if 0
 #if 0
 /* Tru64 with Desktop Toolkit C has a bug: <stdio.h> must be included before
    <wchar.h>.
@@ -110,7 +110,7 @@ extern int iconv_close (iconv_t cd);
    A pointer to such an object can be used as an iconv_t. */
 typedef struct {
   void* dummy1[28];
-#if 1
+#if 0
   mbstate_t dummy2;
 #endif
 } iconv_allocation_t;
