@@ -18,7 +18,7 @@ This package includes MINGW compiled binaries of:
 antlr -> version 2.7.7  
 mico  -> version 2.3.13
 msys  -> version 1.0.1
-mingw -> version gcc 3.4.5 (candidate version)
+mingw -> version gcc 4.4.0
 rml   -> version from Subversion: svn co https://openmodelica.org/svn/MetaModelica/trunk
 mlton -> version MLton 20051202 (build Fri Dec 02 11:40:25 2005 on unknown)
 
