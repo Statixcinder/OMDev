@@ -12,7 +12,6 @@ NOTE:
 
 
 
-
 OMDev=a set of tools packaged togheter so no
       installation is necessary and everything 
       works as expected.
