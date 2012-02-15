@@ -7,7 +7,11 @@ https://openmodelica.ida.liu.se/svn/OpenModelica/installers/windows/OMDev
 user: anonymous
 pass: none   <-- write "none" here
 
-READ MORE ABOUT THE CHANGES IN THE SVN LOG!
+NOTE:
+  READ MORE ABOUT THE CHANGES IN THE SVN LOG!
+
+
+
 
 OMDev=a set of tools packaged togheter so no
       installation is necessary and everything 
