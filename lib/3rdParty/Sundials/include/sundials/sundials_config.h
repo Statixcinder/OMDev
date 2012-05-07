@@ -49,7 +49,7 @@
  * otherwise
  *     #define SUNDIALS_USE_GENERIC_MATH 0
  */
-
+#define SUNDIALS_USE_GENERIC_MATH 1
 
 /* Blas/Lapack available
  * If working libraries for Blas/lapack support were found, then
