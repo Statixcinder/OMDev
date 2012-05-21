@@ -19,7 +19,7 @@
 #include <cstring>
 
 #if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32)) \
-    && !defined(BOOST_DISABLE_WIN32) /*&& !defined(__GNUC__)*/
+    && !defined(BOOST_DISABLE_WIN32) && (!defined(__GNUC__) ||  defined(__MINGW32__))
 
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0501
@@ -59,7 +59,13 @@ namespace impl {
   typedef void * library_handle;
   typedef void * generic_function_ptr;
   inline library_handle load_shared_library(const char* library_name) {
-    return dlopen(library_name, RTLD_LAZY);
+  	library_handle  handle = dlopen(library_name, RTLD_LAZY);
+	if (!handle) {
+        std::cout << "Cannot open library: " << dlerror() << '\n';
+        return NULL;
+    }
+	return handle;
+
   }
   inline generic_function_ptr get_function(library_handle handle,
                                            const char* function_name) {
