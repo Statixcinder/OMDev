@@ -12,7 +12,7 @@
  * See http://www.boost.org/ for latest version.
  */
 
-#if __GNUC__ >= 4
+#if (__GNUC__ >= 4) && !defined(__MINGW32__)
 #  define BOOST_EXTENSION_EXPORT_DECL __attribute__((visibility("default")))
 #  define BOOST_EXTENSION_IMPORT_DECL __attribute__((visibility("hidden")))
 #elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(MSC_VER)
