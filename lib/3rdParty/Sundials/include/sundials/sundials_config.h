@@ -1,7 +1,7 @@
 /*
  * -----------------------------------------------------------------
- * $Revision: 1.4 $
- * $Date: 2007/12/19 20:34:00 $
+ * $Revision: 1.6 $
+ * $Date: 2010/12/15 22:45:17 $
  * ----------------------------------------------------------------- 
  * Programmer(s): Aaron Collier and Radu Serban @ LLNL
  * -----------------------------------------------------------------
@@ -45,11 +45,9 @@
 
 /* Use generic math functions 
  * If it was decided that generic math functions can be used, then
- *     #define SUNDIALS_USE_GENERIC_MATH 1
- * otherwise
- *     #define SUNDIALS_USE_GENERIC_MATH 0
+ *     #define SUNDIALS_USE_GENERIC_MATH
  */
-#define SUNDIALS_USE_GENERIC_MATH 1
+
 
 /* Blas/Lapack available
  * If working libraries for Blas/lapack support were found, then
@@ -75,4 +73,8 @@
  * In all other cases (other platforms or static libraries under
  * Windows), the SUNDIALS_EXPORT macro is empty
  */
-#define SUNDIALS_EXPORT
+#ifdef BUILD_SUNDIALS_LIBRARY
+#define SUNDIALS_EXPORT __declspec(dllexport)
+#else
+#define SUNDIALS_EXPORT __declspec(dllimport)
+#endif
