@@ -74,7 +74,18 @@
  * Windows), the SUNDIALS_EXPORT macro is empty
  */
 #ifdef BUILD_SUNDIALS_LIBRARY
-#define SUNDIALS_EXPORT /* adeas31 2012-08-29:19:27 Commented since we want to link with static libs. *//*__declspec(dllexport)*/
+
+#define SUNDIALS_EXPORT __declspec(dllexport)
+
 #else
-#define SUNDIALS_EXPORT /* adeas31 2012-08-29:19:27 Commented since we want to link with static libs. *//*__declspec(dllimport)*/
+
+/* adrpo 2012-08-29: have it static in mingw! */
+#if defined(__MINGW32__)
+#define SUNDIALS_EXPORT /*__declspec(dllimport) */
+#else 
+#define SUNDIALS_EXPORT __declspec(dllimport)
 #endif
+
+#endif
+
+
