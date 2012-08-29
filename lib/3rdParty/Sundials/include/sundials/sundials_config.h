@@ -74,7 +74,7 @@
  * Windows), the SUNDIALS_EXPORT macro is empty
  */
 #ifdef BUILD_SUNDIALS_LIBRARY
-#define SUNDIALS_EXPORT __declspec(dllexport)
+#define SUNDIALS_EXPORT /* adeas31 2012-08-29:19:27 Commented since we want to link with static libs. *//*__declspec(dllexport)*/
 #else
-#define SUNDIALS_EXPORT __declspec(dllimport)
+#define SUNDIALS_EXPORT /* adeas31 2012-08-29:19:27 Commented since we want to link with static libs. *//*__declspec(dllimport)*/
 #endif
