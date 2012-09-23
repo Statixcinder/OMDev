@@ -692,6 +692,13 @@ extern void *mk_box6(unsigned ctor, void*, void*, void*, void*, void*, void*);
 extern void *mk_box7(unsigned ctor, void*, void*, void*, void*, void*, void*, void*);
 extern void *mk_box8(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*);
 extern void *mk_box9(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box10(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box11(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box12(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box13(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box14(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box15(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
+extern void *mk_box16(unsigned ctor, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*, void*);
 
 /* booleans */
 #define		mk_bcon(X)			(X) ? RML_TRUE : RML_FALSE
@@ -776,7 +783,7 @@ extern void *rml_prim_gcalloc(rml_uint_t, rml_uint_t);
     if (x == NULL) { \
       rml_trace_enabled = 1; \
       fprintf(stderr, "NOT ENOUGH MEMORY function: %s address: %p trace: %d\n", \
-        LABEL_STRING, UNUSEDLABEL, rml_trace_enabled); fflush(stderr); RML_TAILCALLK(rmlFC); \
+        LABEL_STRING, UNUSEDLABEL, rml_trace_enabled); fflush(stderr); RML_TAILCALLK(rmlFC); fflush(stderr); \
     } \
     else { \
       (VAR) = x; \
